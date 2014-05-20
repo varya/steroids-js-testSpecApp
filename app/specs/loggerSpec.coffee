@@ -31,7 +31,7 @@ describe "logger", ->
       expect( _message.message ).toBe("hello world")
 
     it "should have location from window location", ->
-      expect( _message.location ).toMatch(/\/views\/logger\/index\.html/)
+      expect( _message.location ).toMatch(/\/views\/(logger|all)\/index\.html/)
 
     it "should have date", ->
       logDate = new Date()
