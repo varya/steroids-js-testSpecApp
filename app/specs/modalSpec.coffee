@@ -21,23 +21,26 @@ describe "modal", ->
         steroids.modal.show { view: googleView },
           onSuccess: -> presented = true
 
-      waitsFor (-> presented), "should be presented", 5000
+      waitsFor (-> presented), "should be presented", 2500
 
       runs ->
         expect(presented).toBeTruthy()
 
-      waits(1500)
+      waits(2000)
 
       runs ->
         steroids.modal.hide {},
           onSuccess: -> dismissed = true
-          onFailure: (msg) -> alert(JSON.stringify(msg))
+          onFailure: (msg) ->
+            # KLUDGE: the Jasmine.js afterEach function wouldn't execute after this test fails for some reason, so must call modal.hide manually.
+            steroids.logger.log(JSON.stringify(msg))
+            steroids.modal.hide()
 
-        waitsFor (-> dismissed), "should be dismissed", 5000
+      waitsFor (-> dismissed), "should be dismissed", 2500
 
-        runs ->
+      runs ->
 
-          expect( dismissed ).toBeTruthy()
+        expect( dismissed ).toBeTruthy()
 
   describe "hideAll", ->
 
@@ -57,19 +60,22 @@ describe "modal", ->
         steroids.modal.show { view: googleView },
           onSuccess: -> presented = true
 
-      waitsFor (-> presented), "should be presented", 5000
+      waitsFor (-> presented), "should be presented", 2500
 
       runs ->
         expect(presented).toBeTruthy()
 
-      waits(1500)
+      waits(2000)
 
       runs ->
         steroids.modal.hideAll {},
           onSuccess: -> dismissed = true
-          onFailure: (msg) -> alert(JSON.stringify(msg))
+          onFailure: (msg) ->
+            # KLUDGE: the Jasmine.js afterEach function wouldn't execute after this test fails for some reason, so must call modal.hide manually.
+            steroids.logger.log(JSON.stringify(msg))
+            steroids.modal.hide()
 
-        waitsFor (-> dismissed), "should be dismissed", 5000
+      waitsFor (-> dismissed), "should be dismissed", 2500
 
-        runs ->
-          expect( dismissed ).toBeTruthy()
+      runs ->
+        expect( dismissed ).toBeTruthy()
