@@ -10,7 +10,7 @@ describe "layers", ->
       pushed = false
       popped = false
 
-      waits(1000)
+      waits(2000)
 
       runs ->
         googleView = new steroids.views.WebView "http://www.google.com"
@@ -26,7 +26,7 @@ describe "layers", ->
       runs ->
         expect( pushed ).toBeTruthy()
 
-      waits(1500)
+      waits(2000)
 
       runs ->
         steroids.layers.pop {},
@@ -38,7 +38,7 @@ describe "layers", ->
 
       waitsFor (-> popped), "Layer should be popped", 5000
 
-      waits(1000)
+      waits(2000)
 
       runs ->
         expect( popped ).toBeTruthy()
@@ -57,7 +57,7 @@ describe "layers", ->
       pushed = false
       popped = false
 
-      waits(1000)
+      waits(2000)
 
       runs ->
         googleView = new steroids.views.WebView "http://www.google.com"
@@ -69,7 +69,7 @@ describe "layers", ->
             alert JSON.stringify error
 
       waitsFor (-> pushed), "Layer should be pushed", 5000
-      waits(1000)
+      waits(2000)
 
       runs ->
         steroids.layers.pop {},
@@ -78,7 +78,7 @@ describe "layers", ->
 
 
       waitsFor (-> popped), "Layer should be popped", 5000
-      waits(1000)
+      waits(2000)
 
       runs ->
         expect( eventsCount ).toEqual(4)
@@ -116,14 +116,14 @@ describe "visibilitychange", ->
         steroids.layers.pop {},
           onSuccess: ->
             popped = true
-      , 1000
+      , 2000
 
       waitsFor -> popped
 
       runs ->
         window.setTimeout =>
           animationFinished = true
-        , 1000
+        , 2000
 
         waitsFor -> animationFinished
 
