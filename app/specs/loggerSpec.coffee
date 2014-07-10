@@ -11,6 +11,8 @@ describe "logger", ->
     describe "when called once", ->
 
       beforeAll ->
+        # KLUDGE: logger.log is used to communicate in other test suites, so message buffer needs to be deleted before running test
+        steroids.logger.messages=[]
         steroids.logger.log "hello"
 
       it "should have logged message in messages", ->
