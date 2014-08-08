@@ -1,5 +1,24 @@
 describe "modal", ->
 
+  defaultCallbacks =
+    onSuccess: () ->
+    onFailure: (error) ->
+      alert "Test fail: " + error.errorDescription
+
+  # Set up listeners for show transition events ending
+  isShown = false
+  isClosed= false
+
+  steroids.modal.on "didshow", () ->
+    isShown = true
+
+  steroids.modal.on "didclose", () ->
+    isClosed = true
+
+  beforeEach () ->
+    isShown = false
+    isClosed = false
+
   it "should be defined", ->
     expect( steroids.modal ).toBeDefined()
 
@@ -10,37 +29,26 @@ describe "modal", ->
 
     it "should present and hide a modal", ->
 
-      presented = false
-      dismissed = false
-
       waits(500)
 
       runs ->
         googleView = new steroids.views.WebView("http://www.google.com")
 
-        steroids.modal.show { view: googleView },
-          onSuccess: -> presented = true
+        steroids.modal.show googleView
 
-      waitsFor (-> presented), "should be presented", 2500
-
-      runs ->
-        expect(presented).toBeTruthy()
-
-      waits(2000)
+      waitsFor (-> isShown), "should be presented", 5000
 
       runs ->
-        steroids.modal.hide {},
-          onSuccess: -> dismissed = true
-          onFailure: (msg) ->
-            # KLUDGE: the Jasmine.js afterEach function wouldn't execute after this test fails for some reason, so must call modal.hide manually.
-            steroids.logger.log(JSON.stringify(msg))
-            steroids.modal.hide()
-
-      waitsFor (-> dismissed), "should be dismissed", 2500
+        expect(isShown).toBeTruthy()
 
       runs ->
+        steroids.modal.hide {}, defaultCallbacks
 
-        expect( dismissed ).toBeTruthy()
+        waitsFor (-> isClosed), "should be dismissed", 5000
+
+        runs ->
+
+          expect(isClosed).toBeTruthy()
 
   describe "hideAll", ->
 
@@ -49,33 +57,22 @@ describe "modal", ->
 
     it "should present and hide a modal", ->
 
-      presented = false
-      dismissed = false
-
       waits(500)
 
       runs ->
         googleView = new steroids.views.WebView("http://www.google.com")
 
-        steroids.modal.show { view: googleView },
-          onSuccess: -> presented = true
+        steroids.modal.show googleView
 
-      waitsFor (-> presented), "should be presented", 2500
-
-      runs ->
-        expect(presented).toBeTruthy()
-
-      waits(2000)
+      waitsFor (-> isShown), "should be presented", 5000
 
       runs ->
-        steroids.modal.hideAll {},
-          onSuccess: -> dismissed = true
-          onFailure: (msg) ->
-            # KLUDGE: the Jasmine.js afterEach function wouldn't execute after this test fails for some reason, so must call modal.hide manually.
-            steroids.logger.log(JSON.stringify(msg))
-            steroids.modal.hide()
-
-      waitsFor (-> dismissed), "should be dismissed", 2500
+        expect(isShown).toBeTruthy()
 
       runs ->
-        expect( dismissed ).toBeTruthy()
+        steroids.modal.hideAll {}, defaultCallbacks
+
+        waitsFor (-> isClosed), "should be dismissed", 5000
+
+        runs ->
+          expect(isClosed).toBeTruthy()
