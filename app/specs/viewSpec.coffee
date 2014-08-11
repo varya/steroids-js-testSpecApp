@@ -21,12 +21,11 @@ describe "view", ->
 
     runs ->
 
-      testView = new steroids.views.WebView "http://www.google.com"
+      testView = new steroids.views.WebView {location: "http://www.google.com", id:"eventTrackerTest"}
       expect(created).toBeTruthy
 
     runs ->
-      testView.preload {},
-        onSuccess: -> preloaded = true
+      testView.preload()
 
     waitsFor (-> preloaded), "view should be preloaded", 5000
 
@@ -34,8 +33,7 @@ describe "view", ->
       expect(preloaded).toBeTruthy()
 
     runs ->
-      testView.unload {},
-        onSuccess: -> unloaded = true
+      testView.unload()
 
     waitsFor (->unloaded), "view should be unloaded", 5000
 
