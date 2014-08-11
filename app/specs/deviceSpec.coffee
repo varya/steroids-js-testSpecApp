@@ -61,7 +61,7 @@ describe "device", ->
     waitsFor -> _ip?
 
     it "to get a sensible value", ->
-      expect( _ip ).toMatch(/192\.168\..*/)
+      expect( _ip ).toMatch(/\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/)
 
   describe "sleep mode", ->
 
