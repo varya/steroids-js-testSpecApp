@@ -12,7 +12,7 @@ describe "views", ->
     describe "location", ->
 
       beforeEach ->
-        @webView = new steroids.views.WebView("https://www.example.com/path?firstParam=1&secondParam=2")
+        @webView = new steroids.views.WebView "https://www.example.com/path?firstParam=1&secondParam=2"
 
       it "should have location set as string", ->
         expect( @webView.location ).toEqual("https://www.example.com/path?firstParam=1&secondParam=2")
@@ -27,14 +27,14 @@ describe "views", ->
 
         it "should keep the same protocol and host", ->
 
-          pathWebView = new steroids.views.WebView("hello/world.html")
+          pathWebView = new steroids.views.WebView "hello/world.html"
           expect( pathWebView.location ).toEqual "#{window.location.protocol}//#{window.location.host}/hello/world.html"
 
 
     describe "params", ->
 
       beforeEach ->
-        @webView = new steroids.views.WebView("https://www.example.com/path?firstParam=1&secondParam=2")
+        @webView = new steroids.views.WebView "https://www.example.com/path?firstParam=1&secondParam=2"
 
       it "should have params parsed from URL", ->
         expect( @webView.params ).toEqual({firstParam: '1', secondParam: '2'})

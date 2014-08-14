@@ -32,7 +32,7 @@ describe "modal", ->
       waits(500)
 
       runs ->
-        googleView = new steroids.views.WebView("http://www.google.com")
+        googleView = new steroids.views.WebView "http://www.google.com"
 
         steroids.modal.show googleView
 
@@ -60,7 +60,7 @@ describe "modal", ->
       waits(500)
 
       runs ->
-        googleView = new steroids.views.WebView("http://www.google.com")
+        googleView = new steroids.views.WebView "http://www.google.com"
 
         steroids.modal.show googleView
 

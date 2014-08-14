@@ -7,7 +7,7 @@ describe "animation", ->
       _ended = false
 
       beforeAll ->
-        animation = new steroids.Animation()
+        animation = new steroids.Animation
         animation.perform {},
           onSuccess: -> _succeeded = true
           onAnimationStarted: -> _started = true
@@ -31,7 +31,7 @@ describe "animation", ->
       _failed = false
 
       beforeAll ->
-        animation = new steroids.Animation("invalid")
+        animation = new steroids.Animation "invalid"
         animation.perform {},
           onSuccess: -> _not_succeeded = false
           onAnimationStarted: -> _started = false
