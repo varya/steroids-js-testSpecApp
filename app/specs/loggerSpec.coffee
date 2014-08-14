@@ -36,7 +36,7 @@ describe "logger", ->
       expect( _message.location ).toMatch(/\/views\/(logger|all)\/index\.html/)
 
     it "should have date", ->
-      logDate = new Date()
+      logDate = new Date
 
       # LOL: unix epoch neckbeards vs hipster mustaches.
 
